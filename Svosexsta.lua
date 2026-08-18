@@ -1,595 +1,478 @@
-for _, v in ipairs(game:GetService("CoreGui"):GetChildren()) do if v.Name == "SvoGui_V17" then v:Destroy() end end
-_G.TargetCameraFOV = 70
-local ScreenGui = Instance.new("ScreenGui")
-local MainFrame = Instance.new("Frame")
-local Title = Instance.new("TextLabel")
-local ToggleBtn = Instance.new("TextButton")
-local NpcBtn = Instance.new("TextButton")
-local FbBtn = Instance.new("TextButton")
-local FogBtn = Instance.new("TextButton")
-local FpsBtn = Instance.new("TextButton")
-local AimBtn = Instance.new("TextButton")
-local AimSizeBtn = Instance.new("TextButton")
-local IgnoreBtn = Instance.new("TextButton")
-local UnloadBtn = Instance.new("TextButton")
-local ToggleWindowBtn = Instance.new("TextButton")
+-- Проверка ключа при запуске
+local KeyCheck = Instance.new("ScreenGui")
+KeyCheck.Parent = game:GetService("CoreGui")
+KeyCheck.ResetOnSpawn = false
+KeyCheck.IgnoreGuiInset = true
+KeyCheck.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
 
-ScreenGui.Name = "SvoGui_V17"
-ScreenGui.Parent = game:GetService("CoreGui")
-ScreenGui.ResetOnSpawn = false
-ScreenGui.IgnoreGuiInset = true
+local KeyFrame = Instance.new("Frame")
+KeyFrame.Parent = KeyCheck
+KeyFrame.BackgroundColor3 = Color3.fromRGB(25, 25, 25)
+KeyFrame.Position = UDim2.new(0.5, -150, 0.5, -100)
+KeyFrame.Size = UDim2.new(0, 300, 0, 200)
+KeyFrame.Active = true
+KeyFrame.Draggable = true
+KeyFrame.ZIndex = 9999
+local KeyCorner = Instance.new("UICorner")
+KeyCorner.CornerRadius = UDim.new(0, 10)
+KeyCorner.Parent = KeyFrame
 
-ToggleWindowBtn.Parent = ScreenGui
-ToggleWindowBtn.Position = UDim2.new(0.02, 0, 0.2, 0)
-ToggleWindowBtn.Size = UDim2.new(0, 35, 0, 35)
-ToggleWindowBtn.BackgroundColor3 = Color3.fromRGB(25, 25, 25)
-ToggleWindowBtn.BorderSizePixel = 1
-ToggleWindowBtn.BorderColor3 = Color3.fromRGB(90, 90, 90)
-ToggleWindowBtn.Text = "S"
-ToggleWindowBtn.TextColor3 = Color3.fromRGB(255, 255, 255)
-ToggleWindowBtn.Font = Enum.Font.Code
-ToggleWindowBtn.Active = true
-ToggleWindowBtn.Draggable = true
+local KeyTitle = Instance.new("TextLabel")
+KeyTitle.Parent = KeyFrame
+KeyTitle.Size = UDim2.new(1, 0, 0.15, 0)
+KeyTitle.BackgroundTransparency = 1
+KeyTitle.Text = "svokaktak v1"
+KeyTitle.TextColor3 = Color3.fromRGB(255, 255, 255)
+KeyTitle.Font = Enum.Font.Code
+KeyTitle.TextSize = 16
 
-MainFrame.Parent = ScreenGui
-MainFrame.BackgroundColor3 = Color3.fromRGB(15, 15, 15)
-MainFrame.BorderSizePixel = 1
-MainFrame.BorderColor3 = Color3.fromRGB(50, 50, 50)
-MainFrame.Position = UDim2.new(0.02, 0, 0.26, 0)
-MainFrame.Size = UDim2.new(0, 185, 0, 480)
-MainFrame.Visible = false
-MainFrame.Active = true
-MainFrame.Draggable = true
+local KeyInput = Instance.new("TextBox")
+KeyInput.Parent = KeyFrame
+KeyInput.Position = UDim2.new(0.1, 0, 0.25, 0)
+KeyInput.Size = UDim2.new(0.8, 0, 0.2, 0)
+KeyInput.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
+KeyInput.TextColor3 = Color3.fromRGB(255, 255, 255)
+KeyInput.Font = Enum.Font.Code
+KeyInput.TextSize = 12
+KeyInput.PlaceholderText = "Enter key..."
+local KeyInputCorner = Instance.new("UICorner")
+KeyInputCorner.CornerRadius = UDim.new(0, 5)
+KeyInputCorner.Parent = KeyInput
 
-Title.Parent = MainFrame
-Title.Size = UDim2.new(1, 0, 0.07, 0)
-Title.BackgroundTransparency = 1
-Title.Text = "svocheats v17"
-Title.TextColor3 = Color3.fromRGB(230, 230, 230)
-Title.TextSize = 13
-Title.Font = Enum.Font.Code
+local KeyButton = Instance.new("TextButton")
+KeyButton.Parent = KeyFrame
+KeyButton.Position = UDim2.new(0.1, 0, 0.5, 0)
+KeyButton.Size = UDim2.new(0.8, 0, 0.15, 0)
+KeyButton.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
+KeyButton.Text = "Submit"
+KeyButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+KeyButton.Font = Enum.Font.Code
+KeyButton.TextSize = 12
+local KeyButtonCorner = Instance.new("UICorner")
+KeyButtonCorner.CornerRadius = UDim.new(0, 5)
+KeyButtonCorner.Parent = KeyButton
 
-local function makeBtn(btn, text, pos, color)
-    btn.Parent = MainFrame
-    btn.Position = pos
-    btn.Size = UDim2.new(0.9, 0, 0.065, 0)
-    btn.BackgroundColor3 = color
-    btn.BorderSizePixel = 1
-    btn.BorderColor3 = Color3.fromRGB(0, 0, 0)
-    btn.Text = text
-    btn.TextColor3 = Color3.fromRGB(255, 255, 255)
-    btn.TextSize = 11
-    btn.Font = Enum.Font.Code
-end
+local TelegramButton = Instance.new("TextButton")
+TelegramButton.Parent = KeyFrame
+TelegramButton.Position = UDim2.new(0.1, 0, 0.72, 0)
+TelegramButton.Size = UDim2.new(0.8, 0, 0.15, 0)
+TelegramButton.BackgroundColor3 = Color3.fromRGB(0, 136, 204) -- Цвет Telegram
+TelegramButton.Text = "Telegram: @neimozuu"
+TelegramButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+TelegramButton.Font = Enum.Font.Code
+TelegramButton.TextSize = 11
+local TelegramCorner = Instance.new("UICorner")
+TelegramCorner.CornerRadius = UDim.new(0, 5)
+TelegramCorner.Parent = TelegramButton
 
-makeBtn(ToggleBtn, "Players Chams: OFF", UDim2.new(0.05, 0, 0.08, 0), Color3.fromRGB(140, 30, 30))
-makeBtn(NpcBtn, "NPC Chams: OFF", UDim2.new(0.05, 0, 0.15, 0), Color3.fromRGB(140, 30, 30))
-makeBtn(FbBtn, "Fullbright: OFF", UDim2.new(0.05, 0, 0.22, 0), Color3.fromRGB(140, 30, 30))
-makeBtn(FogBtn, "No Fog: OFF", UDim2.new(0.05, 0, 0.29, 0), Color3.fromRGB(140, 30, 30))
-makeBtn(FpsBtn, "FPS Boost: OFF", UDim2.new(0.05, 0, 0.36, 0), Color3.fromRGB(140, 30, 30))
-makeBtn(AimBtn, "Aimbot Head: OFF", UDim2.new(0.05, 0, 0.43, 0), Color3.fromRGB(140, 30, 30))
-makeBtn(AimSizeBtn, "Aim Size: 100", UDim2.new(0.05, 0, 0.50, 0), Color3.fromRGB(40, 40, 40))
-makeBtn(IgnoreBtn, "Ignore List", UDim2.new(0.05, 0, 0.57, 0), Color3.fromRGB(40, 40, 40))
-makeBtn(UnloadBtn, "ОБНУЛИТЬ ЧИТ", UDim2.new(0.05, 0, 0.88, 0), Color3.fromRGB(45, 45, 50))
-
-ToggleWindowBtn.MouseButton1Click:Connect(function()
-    MainFrame.Visible = not MainFrame.Visible
+TelegramButton.MouseButton1Click:Connect(function()
+    setclipboard("@neimozuu")
+    TelegramButton.Text = "Copied!"
+    task.wait(1)
+    TelegramButton.Text = "Telegram: @neimozuu"
 end)
 
-game:GetService("UserInputService").InputBegan:Connect(function(i)
-    if i.KeyCode == Enum.KeyCode.Insert then
-        MainFrame.Visible = not MainFrame.Visible
-    end
-end)
-
-local Players = game:GetService("Players")
-local LocalPlayer = Players.LocalPlayer
-local Camera = workspace.CurrentCamera
-local RunService = game:GetService("RunService")
-local Lighting = game:GetService("Lighting")
-local UserInputService = game:GetService("UserInputService")
-
-local WH_Active, NPC_Active, FB_Active, Fog_Active, FPS_Active, AIM_Active = false, false, false, false, false, false
-local ScriptRunning = true
-local AimSize = 100
-local IgnoreList = {}
-local HighlightedPlayers = {} -- Кэш для хранения подсвеченных игроков
-
-local origAmbient, origColorShift, origGlobalShadows, origTime = Lighting.Ambient, Lighting.ColorShift_Top, Lighting.GlobalShadows, Lighting.ClockTime
-local origFogStart, origFogEnd = Lighting.FogStart, Lighting.FogEnd
-local origBrightness = Lighting.Brightness
-
-local atmCache = {}
-for _, v in ipairs(Lighting:GetChildren()) do
-    if v:IsA("Atmosphere") then
-        atmCache[v] = {v.Density, v.Offset}
-    end
-end
-
-local skyCache = {}
-for _, v in ipairs(workspace:GetDescendants()) do
-    if v:IsA("Sky") then
-        table.insert(skyCache, v)
-    end
-end
-
-local cachedPlrs, cachedNpcs = {}, {}
-
-local aimCircle = Drawing.new("Circle")
-aimCircle.Visible = false
-aimCircle.Thickness = 2
-aimCircle.Color = Color3.fromRGB(80, 0, 80)
-aimCircle.Filled = false
-aimCircle.ZIndex = 10
-aimCircle.Radius = AimSize
-
-local function findTargetPart(char)
-    local possibleParts = {
-        "Head", "head", "HEAD",
-        "HumanoidRootPart",
-        "Torso", "torso", "TORSO",
-        "UpperTorso", "upperTorso", "UPPERTORSO",
-        "Chest", "chest", "CHEST"
-    }
-    
-    for _, partName in ipairs(possibleParts) do
-        local part = char:FindFirstChild(partName)
-        if part and part:IsA("BasePart") then
-            return part
-        end
-    end
-    
-    for _, part in ipairs(char:GetChildren()) do
-        if part:IsA("BasePart") then
-            local lowerName = string.lower(part.Name)
-            if string.find(lowerName, "head") or string.find(lowerName, "torso") or string.find(lowerName, "chest") then
-                return part
-            end
-        end
-    end
-    
-    local humanoid = char:FindFirstChildOfClass("Humanoid")
-    if humanoid and humanoid.RootPart then
-        return humanoid.RootPart
-    end
-    
-    for _, part in ipairs(char:GetChildren()) do
-        if part:IsA("BasePart") then
-            return part
-        end
-    end
-    
-    return nil
-end
-
-local function isVisible(model)
-    local target = findTargetPart(model)
-    if not target or not LocalPlayer.Character then return false end
-    
-    local raycastParams = RaycastParams.new()
-    raycastParams.FilterDescendantsInstances = {LocalPlayer.Character, model}
-    raycastParams.FilterType = Enum.RaycastFilterType.Blacklist
-    
-    local direction = (target.Position - Camera.CFrame.Position).Unit
-    local distance = (target.Position - Camera.CFrame.Position).Magnitude
-    
-    local ray = Ray.new(Camera.CFrame.Position, direction * distance)
-    local hit = workspace:Raycast(ray.Origin, ray.Direction, raycastParams)
-    
-    if hit then
-        return false
+local function checkKey()
+    if KeyInput.Text == "SVOKAKTAK" then
+        KeyCheck:Destroy()
+        loadMainScript()
     else
-        return true
+        KeyInput.Text = ""
+        KeyInput.PlaceholderText = "Wrong key!"
     end
 end
 
-local function createHighlight(model, name)
-    local highlight = Instance.new("Highlight")
-    highlight.Name = name
-    highlight.FillTransparency = 0.3
-    highlight.OutlineTransparency = 1
-    highlight.DepthMode = Enum.HighlightDepthMode.AlwaysOnTop
-    highlight.Parent = model
-    return highlight
-end
+KeyButton.MouseButton1Click:Connect(checkKey)
+KeyInput.FocusLost:Connect(function(enterPressed)
+    if enterPressed then
+        checkKey()
+    end
+end)
 
-local function updatePlayerChams()
-    if not WH_Active then return end
-    
-    -- Обновляем существующие подсветки
-    for _, model in ipairs(cachedPlrs) do
-        if model and model:IsA("Model") then
-            local highlight = model:FindFirstChild("PChams")
-            if not highlight then
-                highlight = createHighlight(model, "PChams")
-            end
-            
-            if isVisible(model) then
-                highlight.FillColor = Color3.fromRGB(0, 255, 0)
-            else
-                highlight.FillColor = Color3.fromRGB(255, 0, 0)
-            end
-        end
+function loadMainScript()
+    for _, v in ipairs(game:GetService("CoreGui"):GetChildren()) do 
+        if v.Name == "SvoGui_V17" then 
+            v:Destroy() 
+        end 
     end
-    
-    -- Проверяем кэш на мертвых игроков и восстанавливаем подсветку
-    for player, wasHighlighted in pairs(HighlightedPlayers) do
-        if wasHighlighted and player.Character then
-            local highlight = player.Character:FindFirstChild("PChams")
-            if not highlight then
-                highlight = createHighlight(player.Character, "PChams")
-            end
-            if isVisible(player.Character) then
-                highlight.FillColor = Color3.fromRGB(0, 255, 0)
-            else
-                highlight.FillColor = Color3.fromRGB(255, 0, 0)
-            end
-        end
-    end
-end
 
-local function drawChams(model, name, defaultColor)
-    if not model or not model:IsA("Model") then return end
-    local highlight = model:FindFirstChild(name)
-    if not highlight then
-        highlight = createHighlight(model, name)
-    end
-    highlight.FillColor = defaultColor
-end
+    local ScreenGui = Instance.new("ScreenGui")
+    ScreenGui.Name = "SvoGui_V17"
+    ScreenGui.Parent = game:GetService("CoreGui")
+    ScreenGui.ResetOnSpawn = false
+    ScreenGui.IgnoreGuiInset = true
+    ScreenGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
 
-local function updateTargets()
-    local plrs, npcs = {}, {}
-    
-    for _, player in ipairs(Players:GetPlayers()) do
-        if player ~= LocalPlayer and not IgnoreList[player.UserId] then
-            local char = player.Character
-            if char then
-                table.insert(plrs, char)
-                HighlightedPlayers[player] = WH_Active -- Сохраняем состояние подсветки
-            end
-        end
-    end
-    
-    local checkedModels = {}
-    for _, v in ipairs(workspace:GetDescendants()) do
-        if v:IsA("Model") and v:FindFirstChildOfClass("Humanoid") and not checkedModels[v] then
-            checkedModels[v] = true
-            local p = Players:GetPlayerFromCharacter(v)
-            if not p then
-                table.insert(npcs, v)
-            end
-        end
-    end
-    
-    cachedPlrs, cachedNpcs = plrs, npcs
-end
+    local ToggleWindowBtn = Instance.new("TextButton")
+    ToggleWindowBtn.Parent = ScreenGui
+    ToggleWindowBtn.Position = UDim2.new(0.02, 0, 0.2, 0)
+    ToggleWindowBtn.Size = UDim2.new(0, 70, 0, 45)
+    ToggleWindowBtn.BackgroundColor3 = Color3.fromRGB(45, 45, 45)
+    ToggleWindowBtn.Text = "svo"
+    ToggleWindowBtn.TextColor3 = Color3.fromRGB(255, 255, 255)
+    ToggleWindowBtn.Font = Enum.Font.Code
+    ToggleWindowBtn.TextSize = 18
+    ToggleWindowBtn.Draggable = true
+    ToggleWindowBtn.ZIndex = 1000
+    local ToggleCorner = Instance.new("UICorner")
+    ToggleCorner.CornerRadius = UDim.new(0, 10)
+    ToggleCorner.Parent = ToggleWindowBtn
 
-local function doAimbot()
-    if not AIM_Active then return end
-    if not LocalPlayer.Character then return end
-    
-    local closestTarget = nil
-    local closestDist = AimSize
-    local screenCenter = Vector2.new(Camera.ViewportSize.X / 2, Camera.ViewportSize.Y / 2)
-    
-    local function check(char)
-        local target = findTargetPart(char)
-        local hum = char:FindFirstChildOfClass("Humanoid")
+    local MainFrame = Instance.new("Frame")
+    MainFrame.Parent = ScreenGui
+    MainFrame.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
+    MainFrame.Position = UDim2.new(0.02, 0, 0.32, 0)
+    MainFrame.Size = UDim2.new(0, 230, 0, 280)
+    MainFrame.Visible = false
+    MainFrame.Active = true
+    MainFrame.Draggable = true
+    MainFrame.ZIndex = 999
+    local MainCorner = Instance.new("UICorner")
+    MainCorner.CornerRadius = UDim.new(0, 10)
+    MainCorner.Parent = MainFrame
+
+    local Title = Instance.new("TextLabel")
+    Title.Parent = MainFrame
+    Title.Size = UDim2.new(1, 0, 0.08, 0)
+    Title.BackgroundTransparency = 1
+    Title.Text = "svokaktak v1"
+    Title.TextColor3 = Color3.fromRGB(255, 255, 255)
+    Title.TextSize = 14
+    Title.Font = Enum.Font.Code
+
+    local ScrollingFrame = Instance.new("ScrollingFrame")
+    ScrollingFrame.Parent = MainFrame
+    ScrollingFrame.Position = UDim2.new(0, 0, 0.08, 0)
+    ScrollingFrame.Size = UDim2.new(1, 0, 0.84, 0)
+    ScrollingFrame.BackgroundTransparency = 1
+    ScrollingFrame.CanvasSize = UDim2.new(0, 0, 0, 220)
+    ScrollingFrame.ScrollBarThickness = 3
+
+    local Players = game:GetService("Players")
+    local LocalPlayer = Players.LocalPlayer
+    local Camera = workspace.CurrentCamera
+    local RunService = game:GetService("RunService")
+
+    local states = {
+        AIM = false,
+        WH = false,
+        NPC = false
+    }
+    local AimSize = 100
+    local IgnoreList = {}
+    local cachedPlrs = {}
+
+    local aimCircle = Instance.new("Frame")
+    aimCircle.Parent = ScreenGui
+    aimCircle.Size = UDim2.new(0, AimSize * 2, 0, AimSize * 2)
+    aimCircle.Position = UDim2.new(0.5, -AimSize, 0.5, -AimSize)
+    aimCircle.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+    aimCircle.BackgroundTransparency = 0.85
+    aimCircle.Visible = false
+    aimCircle.ZIndex = 10
+    Instance.new("UICorner", aimCircle).CornerRadius = UDim.new(1, 0)
+    local aimStroke = Instance.new("UIStroke")
+    aimStroke.Parent = aimCircle
+    aimStroke.Color = Color3.fromRGB(255, 255, 255)
+    aimStroke.Thickness = 2
+
+    local function createToggle(text, y, key, callback)
+        local container = Instance.new("Frame")
+        container.Parent = ScrollingFrame
+        container.Position = UDim2.new(0.05, 0, 0, y)
+        container.Size = UDim2.new(0.9, 0, 0, 35)
+        container.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
+        local corner = Instance.new("UICorner")
+        corner.CornerRadius = UDim.new(0, 8)
+        corner.Parent = container
         
-        if target then
-            if hum and hum.Health <= 0 then
-                return
+        local label = Instance.new("TextLabel")
+        label.Parent = container
+        label.Position = UDim2.new(0.05, 0, 0, 0)
+        label.Size = UDim2.new(0.5, 0, 1, 0)
+        label.BackgroundTransparency = 1
+        label.Text = text
+        label.TextColor3 = Color3.fromRGB(255, 255, 255)
+        label.Font = Enum.Font.Code
+        label.TextSize = 11
+        label.TextXAlignment = Enum.TextXAlignment.Left
+        
+        local slider = Instance.new("TextButton")
+        slider.Parent = container
+        slider.Position = UDim2.new(0.65, 0, 0.15, 0)
+        slider.Size = UDim2.new(0.3, 0, 0.7, 0)
+        slider.BackgroundColor3 = states[key] and Color3.fromRGB(0, 255, 0) or Color3.fromRGB(60, 60, 60)
+        slider.Text = states[key] and "ON" or "OFF"
+        slider.TextColor3 = Color3.fromRGB(255, 255, 255)
+        slider.Font = Enum.Font.Code
+        slider.TextSize = 10
+        local sliderCorner = Instance.new("UICorner")
+        sliderCorner.CornerRadius = UDim.new(0, 6)
+        sliderCorner.Parent = slider
+        
+        slider.MouseButton1Click:Connect(function()
+            states[key] = not states[key]
+            slider.BackgroundColor3 = states[key] and Color3.fromRGB(0, 255, 0) or Color3.fromRGB(60, 60, 60)
+            slider.Text = states[key] and "ON" or "OFF"
+            callback(states[key])
+        end)
+        
+        if states[key] then
+            callback(true)
+        end
+    end
+
+    createToggle("Player Chams", 5, "WH", function(state) states.WH = state end)
+    createToggle("NPC Chams", 45, "NPC", function(state) states.NPC = state end)
+    createToggle("Aimbot", 85, "AIM", function(state) 
+        states.AIM = state
+        aimCircle.Visible = state
+    end)
+
+    local AimSizeLabel = Instance.new("TextLabel")
+    AimSizeLabel.Parent = ScrollingFrame
+    AimSizeLabel.Position = UDim2.new(0.05, 0, 0, 125)
+    AimSizeLabel.Size = UDim2.new(0.9, 0, 0, 20)
+    AimSizeLabel.BackgroundTransparency = 1
+    AimSizeLabel.Text = "Aim Size: 100"
+    AimSizeLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
+    AimSizeLabel.Font = Enum.Font.Code
+    AimSizeLabel.TextSize = 11
+
+    local AimSizeInput = Instance.new("TextBox")
+    AimSizeInput.Parent = ScrollingFrame
+    AimSizeInput.Position = UDim2.new(0.05, 0, 0, 145)
+    AimSizeInput.Size = UDim2.new(0.9, 0, 0, 30)
+    AimSizeInput.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
+    AimSizeInput.TextColor3 = Color3.fromRGB(255, 255, 255)
+    AimSizeInput.Font = Enum.Font.Code
+    AimSizeInput.TextSize = 12
+    AimSizeInput.PlaceholderText = "Enter size (50-300)"
+    local inputCorner = Instance.new("UICorner")
+    inputCorner.CornerRadius = UDim.new(0, 6)
+    inputCorner.Parent = AimSizeInput
+
+    AimSizeInput.FocusLost:Connect(function(enterPressed)
+        local value = tonumber(AimSizeInput.Text)
+        if value and value >= 50 and value <= 300 then
+            AimSize = value
+            AimSizeLabel.Text = "Aim Size: " .. AimSize
+            aimCircle.Size = UDim2.new(0, AimSize * 2, 0, AimSize * 2)
+            aimCircle.Position = UDim2.new(0.5, -AimSize, 0.5, -AimSize)
+        end
+        AimSizeInput.Text = ""
+    end)
+
+    local IgnoreBtn = Instance.new("TextButton")
+    IgnoreBtn.Parent = ScrollingFrame
+    IgnoreBtn.Position = UDim2.new(0.05, 0, 0, 185)
+    IgnoreBtn.Size = UDim2.new(0.9, 0, 0, 30)
+    IgnoreBtn.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
+    IgnoreBtn.Text = "Ignore List"
+    IgnoreBtn.TextColor3 = Color3.fromRGB(255, 255, 255)
+    IgnoreBtn.Font = Enum.Font.Code
+    IgnoreBtn.TextSize = 11
+    local ignoreCorner = Instance.new("UICorner")
+    ignoreCorner.CornerRadius = UDim.new(0, 8)
+    ignoreCorner.Parent = IgnoreBtn
+
+    local UnloadBtn = Instance.new("TextButton")
+    UnloadBtn.Parent = MainFrame
+    UnloadBtn.Position = UDim2.new(0.05, 0, 0.92, 0)
+    UnloadBtn.Size = UDim2.new(0.9, 0, 0.06, 0)
+    UnloadBtn.BackgroundColor3 = Color3.fromRGB(139, 0, 0)
+    UnloadBtn.Text = "UNLOAD"
+    UnloadBtn.TextColor3 = Color3.fromRGB(255, 255, 255)
+    UnloadBtn.Font = Enum.Font.Code
+    UnloadBtn.TextSize = 12
+    local unloadCorner = Instance.new("UICorner")
+    unloadCorner.CornerRadius = UDim.new(0, 6)
+    unloadCorner.Parent = UnloadBtn
+
+    UnloadBtn.MouseButton1Click:Connect(function()
+        ScreenGui:Destroy()
+        for _, v in ipairs(workspace:GetDescendants()) do
+            if v:IsA("Highlight") and v.Name == "PChams" then
+                v:Destroy()
             end
-            
-            if not isVisible(char) then
-                return
+        end
+    end)
+
+    ToggleWindowBtn.MouseButton1Click:Connect(function()
+        MainFrame.Visible = not MainFrame.Visible
+    end)
+
+    local function findHead(char)
+        for _, name in ipairs({"Head", "HumanoidRootPart", "Torso", "UpperTorso"}) do
+            local part = char:FindFirstChild(name)
+            if part and part:IsA("BasePart") then 
+                return part 
             end
-            
-            local targetPos = target.Position
-            
-            local lowerName = string.lower(target.Name)
-            if not string.find(lowerName, "head") then
-                targetPos = targetPos + Vector3.new(0, 2, 0)
-            end
-            
-            local sPos, onScreen = Camera:WorldToViewportPoint(targetPos)
-            if onScreen then
-                local dist = (Vector2.new(sPos.X, sPos.Y) - screenCenter).Magnitude
-                if dist < closestDist then
-                    closestDist = dist
-                    closestTarget = targetPos
+        end
+        local humanoid = char:FindFirstChildOfClass("Humanoid")
+        return humanoid and humanoid.RootPart
+    end
+
+    local function isVisible(model)
+        local target = findHead(model)
+        if not target or not LocalPlayer.Character then return false end
+        local params = RaycastParams.new()
+        params.FilterDescendantsInstances = {LocalPlayer.Character, model}
+        params.FilterType = Enum.RaycastFilterType.Blacklist
+        local dir = (target.Position - Camera.CFrame.Position)
+        local ray = Ray.new(Camera.CFrame.Position, dir.Unit * dir.Magnitude)
+        return workspace:Raycast(ray.Origin, ray.Direction, params) == nil
+    end
+
+    local function updateTargets()
+        cachedPlrs = {}
+        for _, player in ipairs(Players:GetPlayers()) do
+            if player ~= LocalPlayer and not IgnoreList[player.UserId] and player.Character then
+                local root = findHead(player.Character)
+                if root then
+                    local dist = (root.Position - Camera.CFrame.Position).Magnitude
+                    if dist <= 1000 then
+                        table.insert(cachedPlrs, player.Character)
+                    end
                 end
             end
         end
     end
-    
-    -- Аимботим ТОЛЬКО на реальных игроков, не на NPC
-    for _, c in ipairs(cachedPlrs) do
-        check(c)
-    end
-    
-    if closestTarget then
-        Camera.CFrame = CFrame.new(Camera.CFrame.Position, closestTarget)
-    end
-end
 
-local function showIgnoreList()
-    local ignoreFrame = Instance.new("Frame")
-    ignoreFrame.Name = "IgnoreFrame"
-    ignoreFrame.Parent = ScreenGui
-    ignoreFrame.BackgroundColor3 = Color3.fromRGB(20, 20, 20)
-    ignoreFrame.BorderSizePixel = 1
-    ignoreFrame.BorderColor3 = Color3.fromRGB(50, 50, 50)
-    ignoreFrame.Position = UDim2.new(0.3, 0, 0.2, 0)
-    ignoreFrame.Size = UDim2.new(0, 200, 0, 300)
-    ignoreFrame.Active = true
-    ignoreFrame.Draggable = true
-    
-    local ignoreTitle = Instance.new("TextLabel")
-    ignoreTitle.Parent = ignoreFrame
-    ignoreTitle.Size = UDim2.new(1, 0, 0.1, 0)
-    ignoreTitle.BackgroundTransparency = 1
-    ignoreTitle.Text = "Ignore List"
-    ignoreTitle.TextColor3 = Color3.fromRGB(255, 255, 255)
-    ignoreTitle.Font = Enum.Font.Code
-    ignoreTitle.TextSize = 14
-    
-    local ignoreList = Instance.new("ScrollingFrame")
-    ignoreList.Parent = ignoreFrame
-    ignoreList.Position = UDim2.new(0, 0, 0.1, 0)
-    ignoreList.Size = UDim2.new(1, 0, 0.75, 0)
-    ignoreList.BackgroundTransparency = 1
-    ignoreList.CanvasSize = UDim2.new(0, 0, 0, 0)
-    
-    local closeBtn = Instance.new("TextButton")
-    closeBtn.Parent = ignoreFrame
-    closeBtn.Position = UDim2.new(0.05, 0, 0.88, 0)
-    closeBtn.Size = UDim2.new(0.9, 0, 0.08, 0)
-    closeBtn.BackgroundColor3 = Color3.fromRGB(140, 30, 30)
-    closeBtn.Text = "Close"
-    closeBtn.TextColor3 = Color3.fromRGB(255, 255, 255)
-    closeBtn.Font = Enum.Font.Code
-    closeBtn.TextSize = 12
-    
-    closeBtn.MouseButton1Click:Connect(function()
-        ignoreFrame:Destroy()
-    end)
-    
-    local function updateIgnoreList()
-        for _, child in ipairs(ignoreList:GetChildren()) do
-            if child:IsA("TextButton") then
-                child:Destroy()
+    local function updateChams()
+        if not states.WH then return end
+        for _, model in ipairs(cachedPlrs) do
+            local highlight = model:FindFirstChild("PChams")
+            if not highlight then
+                highlight = Instance.new("Highlight")
+                highlight.Name = "PChams"
+                highlight.FillTransparency = 0.3
+                highlight.OutlineTransparency = 1
+                highlight.DepthMode = Enum.HighlightDepthMode.AlwaysOnTop
+                highlight.Parent = model
             end
+            highlight.FillColor = isVisible(model) and Color3.fromRGB(255, 100, 0) or Color3.fromRGB(40, 0, 80)
         end
+    end
+
+    local function doAimbot()
+        if not states.AIM or not LocalPlayer.Character then return end
+        local best, bestDist = nil, AimSize
+        local center = Vector2.new(Camera.ViewportSize.X / 2, Camera.ViewportSize.Y / 2)
         
-        local yPos = 0
-        for _, player in ipairs(Players:GetPlayers()) do
-            if player ~= LocalPlayer then
-                local btn = Instance.new("TextButton")
-                btn.Parent = ignoreList
-                btn.Position = UDim2.new(0.05, 0, 0, yPos)
-                btn.Size = UDim2.new(0.9, 0, 0, 30)
-                btn.BackgroundColor3 = IgnoreList[player.UserId] and Color3.fromRGB(30, 120, 30) or Color3.fromRGB(140, 30, 30)
-                btn.Text = player.Name .. (IgnoreList[player.UserId] and " [IG]" or "")
-                btn.TextColor3 = Color3.fromRGB(255, 255, 255)
-                btn.Font = Enum.Font.Code
-                btn.TextSize = 11
-                
-                btn.MouseButton1Click:Connect(function()
-                    if IgnoreList[player.UserId] then
-                        IgnoreList[player.UserId] = nil
-                    else
-                        IgnoreList[player.UserId] = true
+        for _, char in ipairs(cachedPlrs) do
+            local target = findHead(char)
+            local humanoid = char:FindFirstChildOfClass("Humanoid")
+            if target and humanoid and humanoid.Health > 0 and isVisible(char) then
+                local pos, onScreen = Camera:WorldToViewportPoint(target.Position)
+                if onScreen then
+                    local dist = (Vector2.new(pos.X, pos.Y) - center).Magnitude
+                    if dist < bestDist then
+                        bestDist = dist
+                        best = target.Position
                     end
-                    updateIgnoreList()
-                    updateTargets()
-                end)
-                
-                yPos = yPos + 35
+                end
             end
         end
         
-        ignoreList.CanvasSize = UDim2.new(0, 0, 0, yPos + 35)
+        if best then
+            Camera.CFrame = CFrame.new(Camera.CFrame.Position, best)
+        end
     end
-    
-    updateIgnoreList()
+
+    local function showIgnoreList()
+        local frame = Instance.new("Frame")
+        frame.Parent = ScreenGui
+        frame.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
+        frame.Position = UDim2.new(0.3, 0, 0.2, 0)
+        frame.Size = UDim2.new(0, 200, 0, 250)
+        frame.Active = true
+        frame.Draggable = true
+        frame.ZIndex = 998
+        local corner = Instance.new("UICorner")
+        corner.CornerRadius = UDim.new(0, 10)
+        corner.Parent = frame
+        
+        local list = Instance.new("ScrollingFrame")
+        list.Parent = frame
+        list.Position = UDim2.new(0, 0, 0.1, 0)
+        list.Size = UDim2.new(1, 0, 0.75, 0)
+        list.BackgroundTransparency = 1
+        list.CanvasSize = UDim2.new(0, 0, 0, 0)
+        
+        local closeBtn = Instance.new("TextButton")
+        closeBtn.Parent = frame
+        closeBtn.Position = UDim2.new(0.05, 0, 0.88, 0)
+        closeBtn.Size = UDim2.new(0.9, 0, 0.08, 0)
+        closeBtn.BackgroundColor3 = Color3.fromRGB(60, 60, 60)
+        closeBtn.Text = "Close"
+        closeBtn.TextColor3 = Color3.fromRGB(255, 255, 255)
+        closeBtn.Font = Enum.Font.Code
+        closeBtn.TextSize = 12
+        local closeCorner = Instance.new("UICorner")
+        closeCorner.CornerRadius = UDim.new(0, 6)
+        closeCorner.Parent = closeBtn
+        
+        closeBtn.MouseButton1Click:Connect(function()
+            frame:Destroy()
+        end)
+        
+        local function updateList()
+            for _, child in ipairs(list:GetChildren()) do
+                if child:IsA("TextButton") then
+                    child:Destroy()
+                end
+            end
+            
+            local yPos = 0
+            for _, player in ipairs(Players:GetPlayers()) do
+                if player ~= LocalPlayer then
+                    local btn = Instance.new("TextButton")
+                    btn.Parent = list
+                    btn.Position = UDim2.new(0.05, 0, 0, yPos)
+                    btn.Size = UDim2.new(0.9, 0, 0, 25)
+                    btn.BackgroundColor3 = IgnoreList[player.UserId] and Color3.fromRGB(50, 100, 50) or Color3.fromRGB(60, 60, 60)
+                    btn.Text = player.Name .. (IgnoreList[player.UserId] and " [IG]" or "")
+                    btn.TextColor3 = Color3.fromRGB(255, 255, 255)
+                    btn.Font = Enum.Font.Code
+                    btn.TextSize = 10
+                    local btnCorner = Instance.new("UICorner")
+                    btnCorner.CornerRadius = UDim.new(0, 5)
+                    btnCorner.Parent = btn
+                    
+                    btn.MouseButton1Click:Connect(function()
+                        IgnoreList[player.UserId] = not IgnoreList[player.UserId]
+                        updateList()
+                        updateTargets()
+                    end)
+                    
+                    yPos = yPos + 28
+                end
+            end
+            
+            list.CanvasSize = UDim2.new(0, 0, 0, yPos + 28)
+        end
+        
+        updateList()
+    end
+
+    IgnoreBtn.MouseButton1Click:Connect(function()
+        showIgnoreList()
+    end)
+
+    RunService.RenderStepped:Connect(function()
+        doAimbot()
+    end)
+
+    task.spawn(function()
+        while task.wait(0.05) do
+            updateTargets()
+            updateChams()
+        end
+    end)
+
+    Players.LocalPlayer.CharacterAdded:Connect(function()
+        task.wait(1)
+        updateTargets()
+    end)
 end
-
-local RenderConnection
-RenderConnection = RunService.RenderStepped:Connect(function()
-    if not ScriptRunning then
-        aimCircle.Visible = false
-        RenderConnection:Disconnect()
-        return
-    end
-    
-    if _G.TargetCameraFOV and _G.TargetCameraFOV >= 70 then
-        Camera.FieldOfView = _G.TargetCameraFOV
-    end
-    
-    if AIM_Active then
-        aimCircle.Visible = true
-        aimCircle.Radius = AimSize
-        aimCircle.Position = Vector2.new(Camera.ViewportSize.X / 2, Camera.ViewportSize.Y / 2)
-    else
-        aimCircle.Visible = false
-    end
-    
-    doAimbot()
-    
-    if FB_Active then
-        Lighting.Ambient = Color3.fromRGB(255, 255, 255)
-        Lighting.ColorShift_Top = Color3.fromRGB(255, 255, 255)
-        Lighting.GlobalShadows = false
-        Lighting.ClockTime = 12
-    end
-    
-    if Fog_Active then
-        Lighting.FogStart = 0
-        Lighting.FogEnd = 9e9
-        for atm, _ in pairs(atmCache) do
-            pcall(function()
-                atm.Density = 0
-                atm.Offset = 0
-            end)
-        end
-    end
-end)
-
-task.spawn(function()
-    while task.wait(0.1) do
-        if not ScriptRunning then break end
-        updateTargets()
-        updatePlayerChams()
-        
-        if NPC_Active then
-            for _, c in ipairs(cachedNpcs) do
-                drawChams(c, "NChams", Color3.fromRGB(0, 120, 255))
-            end
-        end
-    end
-end)
-
-ToggleBtn.MouseButton1Click:Connect(function()
-    WH_Active = not WH_Active
-    if WH_Active then
-        ToggleBtn.BackgroundColor3 = Color3.fromRGB(30, 120, 30)
-        ToggleBtn.Text = "Players Chams: ON"
-        updatePlayerChams()
-    else
-        ToggleBtn.BackgroundColor3 = Color3.fromRGB(140, 30, 30)
-        ToggleBtn.Text = "Players Chams: OFF"
-        HighlightedPlayers = {}
-        for _, v in ipairs(workspace:GetDescendants()) do
-            if v.Name == "PChams" then v:Destroy() end
-        end
-    end
-end)
-
-NpcBtn.MouseButton1Click:Connect(function()
-    NPC_Active = not NPC_Active
-    if NPC_Active then
-        NpcBtn.BackgroundColor3 = Color3.fromRGB(30, 120, 30)
-        NpcBtn.Text = "NPC Chams: ON"
-    else
-        NpcBtn.BackgroundColor3 = Color3.fromRGB(140, 30, 30)
-        NpcBtn.Text = "NPC Chams: OFF"
-        for _, v in ipairs(workspace:GetDescendants()) do
-            if v.Name == "NChams" then v:Destroy() end
-        end
-    end
-end)
-
-FbBtn.MouseButton1Click:Connect(function()
-    FB_Active = not FB_Active
-    if FB_Active then
-        FbBtn.BackgroundColor3 = Color3.fromRGB(30, 120, 30)
-        FbBtn.Text = "Fullbright: ON"
-    else
-        FbBtn.BackgroundColor3 = Color3.fromRGB(140, 30, 30)
-        FbBtn.Text = "Fullbright: OFF"
-        Lighting.Ambient = origAmbient
-        Lighting.ColorShift_Top = origColorShift
-        Lighting.GlobalShadows = origGlobalShadows
-        Lighting.ClockTime = origTime
-    end
-end)
-
-FogBtn.MouseButton1Click:Connect(function()
-    Fog_Active = not Fog_Active
-    if Fog_Active then
-        FogBtn.BackgroundColor3 = Color3.fromRGB(30, 120, 30)
-        FogBtn.Text = "No Fog: ON"
-    else
-        FogBtn.BackgroundColor3 = Color3.fromRGB(140, 30, 30)
-        FogBtn.Text = "No Fog: OFF"
-        Lighting.FogStart = origFogStart
-        Lighting.FogEnd = origFogEnd
-        for atm, data in pairs(atmCache) do
-            pcall(function()
-                atm.Density = data[1]
-                atm.Offset = data[2]
-            end)
-        end
-    end
-end)
-
-FpsBtn.MouseButton1Click:Connect(function()
-    FPS_Active = not FPS_Active
-    if FPS_Active then
-        FpsBtn.BackgroundColor3 = Color3.fromRGB(30, 120, 30)
-        FpsBtn.Text = "FPS Boost: ON"
-        Lighting.GlobalShadows = false
-        Lighting.Brightness = 0
-        for _, sky in ipairs(skyCache) do
-            pcall(function()
-                sky.Parent = nil
-            end)
-        end
-    else
-        FpsBtn.BackgroundColor3 = Color3.fromRGB(140, 30, 30)
-        FpsBtn.Text = "FPS Boost: OFF"
-        Lighting.GlobalShadows = origGlobalShadows
-        Lighting.Brightness = origBrightness
-        for _, sky in ipairs(skyCache) do
-            pcall(function()
-                sky.Parent = workspace
-            end)
-        end
-    end
-end)
-
-AimBtn.MouseButton1Click:Connect(function()
-    AIM_Active = not AIM_Active
-    if AIM_Active then
-        AimBtn.BackgroundColor3 = Color3.fromRGB(30, 120, 30)
-        AimBtn.Text = "Aimbot Head: ON"
-        updateTargets()
-    else
-        AimBtn.BackgroundColor3 = Color3.fromRGB(140, 30, 30)
-        AimBtn.Text = "Aimbot Head: OFF"
-    end
-end)
-
-AimSizeBtn.MouseButton1Click:Connect(function()
-    AimSize = AimSize + 50
-    if AimSize > 300 then
-        AimSize = 50
-    end
-    AimSizeBtn.Text = "Aim Size: " .. AimSize
-end)
-
-IgnoreBtn.MouseButton1Click:Connect(function()
-    showIgnoreList()
-end)
-
-UnloadBtn.MouseButton1Click:Connect(function()
-    ScriptRunning = false
-    aimCircle.Visible = false
-    Lighting.Ambient = origAmbient
-    Lighting.ColorShift_Top = origColorShift
-    Lighting.GlobalShadows = origGlobalShadows
-    Lighting.ClockTime = origTime
-    Lighting.FogStart = origFogStart
-    Lighting.FogEnd = origFogEnd
-    Lighting.Brightness = origBrightness
-    for atm, data in pairs(atmCache) do
-        pcall(function()
-            atm.Density = data[1]
-            atm.Offset = data[2]
-        end)
-    end
-    for _, sky in ipairs(skyCache) do
-        pcall(function()
-            sky.Parent = workspace
-        end)
-    end
-    ScreenGui:Destroy()
-    for _, v in ipairs(workspace:GetDescendants()) do
-        if v.Name == "PChams" or v.Name == "NChams" then
-            v:Destroy()
-        end
-    end
-    _G.TargetCameraFOV = 70
-    Camera.FieldOfView = 70
-end)
